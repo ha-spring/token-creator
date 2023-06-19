@@ -21,6 +21,7 @@ const instantiateContract = (baseContractPath) => {
 
   const output = solc.compile(JSON.stringify(input));
   const contract = JSON.parse(output);
+  console.log('CONTRACT', contract)
   const bytecode =
     "0x" + contract.contracts[baseContractPath]["Base"].evm.bytecode.object;
   const abi = contract.contracts[baseContractPath]["Base"].abi;
@@ -89,7 +90,7 @@ const getBytecodeAbi = (
   const isOwnable = isMintable || isPausable;
   const solidityCode = `
                 // SPDX-License-Identifier: MIT
-                pragma solidity ^0.8.9;
+                pragma solidity 0.8.19;
 
         import "./node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol";
         ${

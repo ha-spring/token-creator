@@ -1,8 +1,10 @@
 const { getBytecodeAbi } = require("./helpers.js");
 const express = require("express");
+const cors = require('cors')
 const app = express();
 const ip = require("ip");
 
+//app.use(cors())
 app.use(express.json());
 app.use(express.static("public"));
 
@@ -11,7 +13,7 @@ app.post("/contract", async (req, res) => {
     const { name, symbol, initialSupply, isMintable, isBurnable, isPausable } =
       req.body;
     const contract = getBytecodeAbi(name, symbol, initialSupply, isMintable, isBurnable, isPausable);
-    res.status(200).json({ contract });
+    res.status(200).json(contract);
   } catch (err) {
     console.log("ERROR:", err);
     res.status(500).json({ error: "Internal Server Error" });
